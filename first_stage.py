@@ -9,11 +9,12 @@ from hexdump import hexdump
 
 
 def on_connect(client, userdata, flags, rc):
-    # Called connection is established to the topic.
     client.subscribe("+/devices/+/up")
 
 
 def on_message(client, userdata, msg):
+
+    m = re.search('.?({.*)', msg.payload)
 
     connection = sqlite3.connect('mydb.sqlite')
     c = connection.cursor()
